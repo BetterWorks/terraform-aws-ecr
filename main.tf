@@ -81,6 +81,8 @@ data "aws_iam_policy_document" "resource_readonly_access" {
       "ecr:ListImages",
       "ecr:DescribeImages",
       "ecr:BatchGetImage",
+      "ecr:BatchImportUpstreamImage",
+      "ecr:CreateRepository"
     ]
   }
 }
@@ -109,6 +111,8 @@ data "aws_iam_policy_document" "resource_full_access" {
       "ecr:ListImages",
       "ecr:DescribeImages",
       "ecr:BatchGetImage",
+      "ecr:BatchImportUpstreamImage",
+      "ecr:CreateRepository"
     ]
   }
 }

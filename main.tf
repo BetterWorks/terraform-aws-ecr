@@ -5,7 +5,7 @@ locals {
 }
 
 module "label" {
-  source     = "git::https://github.com/betterworks/terraform-null-label.git?ref=tags/0.12.0"
+  source     = "git::https://github.com/betterworks/terraform-null-label.git?ref=tf-upgrade"
   enabled    = var.enabled
   namespace  = var.namespace
   stage      = var.stage
@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "empty" {
 
 data "aws_iam_policy_document" "resource_readonly_access" {
   statement {
-    sid = "ReadonlyAccess"
+    sid    = "ReadonlyAccess"
     effect = "Allow"
 
     principals {
@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "resource_readonly_access" {
 
 data "aws_iam_policy_document" "resource_full_access" {
   statement {
-    sid = "FullAccess"
+    sid    = "FullAccess"
     effect = "Allow"
 
     principals {
@@ -118,13 +118,13 @@ data "aws_iam_policy_document" "resource_full_access" {
 }
 
 data "aws_iam_policy_document" "resource" {
-  source_json = local.principals_readonly_access_non_empty != 0 ? data.aws_iam_policy_document.resource_readonly_access.json : data.aws_iam_policy_document.empty.json
+  source_json   = local.principals_readonly_access_non_empty != 0 ? data.aws_iam_policy_document.resource_readonly_access.json : data.aws_iam_policy_document.empty.json
   override_json = local.principals_full_access_non_empty != 0 ? data.aws_iam_policy_document.resource_full_access.json : data.aws_iam_policy_document.empty.json
 }
 
 resource "aws_ecr_repository_policy" "default" {
-  count = local.ecr_need_policy == "true" && var.enabled == "true" ? 1 : 0
+  count      = local.ecr_need_policy == "true" && var.enabled == "true" ? 1 : 0
   repository = aws_ecr_repository.default[0].name
-  policy = data.aws_iam_policy_document.resource.json
+  policy     = data.aws_iam_policy_document.resource.json
 }
 

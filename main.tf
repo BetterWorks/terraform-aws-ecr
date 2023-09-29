@@ -5,7 +5,7 @@ locals {
 }
 
 module "label" {
-  source     = "git::https://github.com/betterworks/terraform-null-label.git?ref=tags/0.12.0"
+  source     = "git::https://github.com/betterworks/terraform-null-label.git?ref=ENG-41751-update-null-label"
   enabled    = var.enabled
   namespace  = var.namespace
   stage      = var.stage

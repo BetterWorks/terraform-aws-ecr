@@ -114,7 +114,7 @@ data "aws_iam_policy_document" "resource_full_access" {
 }
 
 data "aws_iam_policy_document" "resource" {
-  source_json = local.principals_readonly_access_non_empty != 0 ? data.aws_iam_policy_document.resource_readonly_access.json : data.aws_iam_policy_document.empty.json
+  source_policy_documents = local.principals_readonly_access_non_empty != 0 ? [data.aws_iam_policy_document.resource_readonly_access.json] : [data.aws_iam_policy_document.empty.json]
   override_json = local.principals_full_access_non_empty != 0 ? data.aws_iam_policy_document.resource_full_access.json : data.aws_iam_policy_document.empty.json
 }
 
